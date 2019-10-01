@@ -3,7 +3,6 @@ using SinglePuncher.Classes;
 using SinglePuncher.Classes.Tools;
 using System;
 using System.Configuration;
-using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -69,9 +68,12 @@ namespace SinglePuncher.Classes
         public SinglePuncher()
         {
             string plcIP = ConfigurationManager.AppSettings.Get("PLC.IP");
+            string plcPort = ConfigurationManager.AppSettings.Get("PLC.PORT");
 
-            myFXEnet2 = new FXEnet2(plcIP, 10000);
+            myFXEnet2 = new FXEnet2(plcIP, int.Parse(plcPort));
+
             //myFXEnet2.conectar();
+
             StartHydraulicPump();
         }
 
