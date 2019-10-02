@@ -1,4 +1,5 @@
-﻿using SinglePuncher.Classes;
+﻿using MaterialDesignThemes.Wpf;
+using SinglePuncher.Classes;
 using SinglePuncher.Classes.Views;
 using System;
 using System.Collections.Generic;
@@ -545,6 +546,38 @@ namespace SinglePuncher
         {
             xMeasure.Stroke = Brushes.Transparent;
             yMeasure.Stroke = Brushes.Transparent;           
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void WindowMaximizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            AdjustWindowSize();
+        }
+
+        /// <summary>
+        /// Adjusts the WindowSize to correct parameters when Maximize button is clicked
+        /// </summary>
+        private void AdjustWindowSize()
+        {
+            if (this.WindowState == WindowState.Maximized)
+            { 
+                this.WindowState = WindowState.Normal;
+                WindowMaximizeButton.Content = new PackIcon { Kind = PackIconKind.WindowMaximize };
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+                WindowMaximizeButton.Content = new PackIcon { Kind = PackIconKind.WindowRestore };
+            }
+        }
+
+        private void WindowMinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

@@ -7,10 +7,22 @@
         xmlns:local="clr-namespace:SinglePuncher"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Strippit Super 750 SG" WindowStartupLocation="CenterScreen" 
-        Background="White" WindowStyle="None"  
-        Loaded="Window_Loaded" Width="1200" Height="800" 
-        ScrollViewer.VerticalScrollBarVisibility="Auto" ResizeMode="CanResizeWithGrip">
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        FontSize="14"
+        Title="Strippit Super 750 SG" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"  
+        Loaded="Window_Loaded" 
+        Width="1200" 
+        Height="800" 
+        ScrollViewer.VerticalScrollBarVisibility="Auto" 
+        WindowState="Maximized">
 
   <Window.Resources>
     <Style x:Key="ShapeButton" TargetType="Button">
@@ -23,260 +35,396 @@
     </Style>
   </Window.Resources>
 
-  <Grid Background="#ff44325f">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-      <Grid>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="1*"/>
-          <ColumnDefinition Width="4*"/>
-          <ColumnDefinition Width="7*" Name="canvasColumn"/>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="60"/>
+      <ColumnDefinition Width="4*"/>
+      <ColumnDefinition Width="7*" Name="canvasColumn"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="*" Name="canvasRow"/>
+      <RowDefinition Height="20"/>
+    </Grid.RowDefinitions>
 
+    <StackPanel Grid.Column="0" Grid.Row="0"
+                VerticalAlignment="Center">
+      <Menu VerticalAlignment="Center" IsMainMenu="True" >
+        <MenuItem Header="_File" FontSize="14" Padding="5">
+          <MenuItem x:Name="loadFileMenuItem" IsEnabled="False" Header="Load File" Click="loadFileMenuItem_Click" />
+          <MenuItem x:Name="saveFileMenuItem"  IsEnabled="False" Header="Save File" Click="saveFileMenuItem_Click" >
+            <MenuItem.Icon>
+              <materialDesign:PackIcon
+          Kind="ContentSave" />
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem x:Name="SetSheetDimensions" IsEnabled="False" Header="Set Sheet Dimensions" Click="SetSheetDimensions_Click" />
+          <Separator />
+          <MenuItem x:Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click" FontFamily="Segoe UI">
+            <MenuItem.Icon>
+              <materialDesign:PackIcon
+          Kind="ExitToApp" />
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+      </Menu>
+    </StackPanel>
+
+    <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3"
+                Orientation="Horizontal" HorizontalAlignment="Center">
+      <TextBlock 
+        VerticalAlignment="Center"
+        Background="{DynamicResource MaterialDesignChipBackground}"
+        Padding="8" Opacity="0.80">
+        STRIPPIT SUPER 750 SG
+      </TextBlock>
+    </StackPanel>
+
+    <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" >
+      <Button x:Name="WindowMinimizeButton" 
+              Click="WindowMinimizeButton_Click" 
+              Style="{StaticResource MaterialDesignFlatAccentButton}">
+        <materialDesign:PackIcon Kind="WindowMinimize" />
+      </Button>
+      <Button x:Name="WindowMaximizeButton" 
+              Click="WindowMaximizeButton_Click" 
+              Style="{StaticResource MaterialDesignFlatAccentButton}">
+        <materialDesign:PackIcon Kind="WindowMaximize" />
+      </Button>
+      <Button x:Name="closeButton" 
+              Click="CloseButton_Click"
+              Style="{StaticResource MaterialDesignFlatAccentButton}">
+        <materialDesign:PackIcon Kind="WindowClose" />
+      </Button>
+    </StackPanel>
+
+
+
+    <StackPanel Grid.Column="0" Grid.Row="1" 
+                HorizontalAlignment="Left"
+                Margin="5 0">
+
+      <Button x:Name="cmdLineAtAngle"  
+              Click="GcodeButton_Click"
+              Margin="0 0 0 5"
+              Content="{materialDesign:PackIcon AirplaneTakeoff}"
+              >
+        <Button.ToolTip>
+          <ToolTip>
+            <StackPanel>
+              <TextBlock FontWeight="Bold">LAA</TextBlock>
+              <TextBlock>Lorem ipsum</TextBlock>
+            </StackPanel>
+          </ToolTip>
+        </Button.ToolTip>
+
+      </Button>
+
+      <Button x:Name="cmdBoltHoleCircle" 
+              Content="{materialDesign:PackIcon AirplaneTakeoff}"
+              Margin="0 0 0 5"
+              Click="GcodeButton_Click">
+        <Button.ToolTip>
+          <ToolTip>
+            <StackPanel>
+              <TextBlock FontWeight="Bold">BHC</TextBlock>
+              <TextBlock>Lorem ipsum</TextBlock>
+            </StackPanel>
+          </ToolTip>
+        </Button.ToolTip>
+      </Button>
+
+      <Button x:Name="cmdLinearContour" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="LIN CON" VerticalAlignment="Center" Margin="0,0,10,0"/>
+          <Image Width="60" Height="35" Source="Assets/LIN CON.png"  />
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdCurveContour" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="CURVE CON" FontSize="14" VerticalAlignment="Center" Margin="0,0,10,0"/>
+          <Image Width="60" Height="35" Source="Assets/CURVE CON.png"   />
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdGridX" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="GRID X" VerticalAlignment="Center" Margin="0,0,25,0"/>
+          <Image Width="60" Height="35" Source="Assets/GRID.png"   />
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdGridY" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="GRID Y" VerticalAlignment="Center" Margin="0,0,25,0"/>
+          <Image Width="60" Height="35" Source="Assets/GRID.png"   />
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdArc" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="ARC" VerticalAlignment="Center" Margin="0,0,50,0"/>
+          <Image Width="60" Height="35" Source="Assets/ARC.png"   />
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdRecWinP" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="RECWIN(P)" VerticalAlignment="Center" FontSize="14" Margin="0,0,20,0"/>
+          <Image Width="60" Height="35" Source="Assets/RECWINP.png"  />
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdRecWinF" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="RECWIN(F)" FontSize="14" VerticalAlignment="Center" Margin="0,0,20,0"/>
+          <Image Width="60" Height="35" Source="Assets/RECWINF.png"/>
+        </StackPanel>
+      </Button>
+
+      <Button x:Name="cmdSinglePunch" FontSize="10" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+        <StackPanel Orientation="Horizontal" Width="160">
+          <TextBlock Text="SINGLE PUNCH" FontSize="15" Width="60" VerticalAlignment="Center" Margin="0,0,25,0" TextWrapping="Wrap"/>
+          <Image Width="60" Height="35" Source="Assets/SINGLEPUNCH.png" />
+        </StackPanel>
+      </Button>
+
+
+      <StackPanel Grid.Row="1" Orientation="Vertical" 
+                  VerticalAlignment="Top"
+                  Margin="5">
+        <StackPanel Orientation="Horizontal">
+          <Button x:Name="cmdReferenceAxes" IsEnabled="True"
+                  Click="cmdReferenceAxes_Click">
+            <TextBlock Text="REFERENCE AXES" TextAlignment="Center"/>
+          </Button>
+
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+
+          <Button x:Name="MDIButton" IsEnabled="False" Click="MDIButton_Click">
+            <TextBlock Text="MDI" />
+          </Button>
+        </StackPanel>
+      </StackPanel>
+
+
+
+    </StackPanel>
+
+    <Grid Grid.Column="1" Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="2*" />
+        <RowDefinition Height="1*" />
+      </Grid.RowDefinitions>
+
+      <GroupBox Margin="10 0" 
+                Style="{DynamicResource MaterialDesignGroupBox}" 
+                BorderThickness="0" Padding="0">
+        <GroupBox.Header>
+          <TextBlock Margin="10" Opacity="0.54">List</TextBlock>
+        </GroupBox.Header>
+        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="1">
+          <StackPanel Grid.Row="0">
+
+            <StackPanel Orientation="Horizontal" Background="{DynamicResource MaterialDesignToolBarBackground}">
+              <ToolBar Width="auto" ClipToBounds="False">
+                <Button x:Name="cmdRemove" Style="{DynamicResource MaterialDesignFlatButton}" Click="cmdRemove_Click">
+                  <materialDesign:PackIcon Kind="GarbageCan" />
+                  <Button.ToolTip>
+                    <ToolTip>
+                      <StackPanel>
+                        <TextBlock FontWeight="Bold">Remove</TextBlock>
+                        <TextBlock>Remove the selected item.</TextBlock>
+                      </StackPanel>
+                    </ToolTip>
+                  </Button.ToolTip>
+                </Button>
+                <Button x:Name="cmdDuplicate" IsEnabled="True" Style="{DynamicResource MaterialDesignFlatButton}" Click="cmdDuplicate_Click">
+                  <materialDesign:PackIcon Kind="ContentDuplicate" />
+                  <Button.ToolTip>
+                    <ToolTip>
+                      <StackPanel>
+                        <TextBlock FontWeight="Bold">Duplicate</TextBlock>
+                        <TextBlock>Duplicate the selected item.</TextBlock>
+                      </StackPanel>
+                    </ToolTip>
+                  </Button.ToolTip>
+                </Button>
+                <Separator/>
+                <Button x:Name="cmdDuplicateAll" IsEnabled="True" Style="{DynamicResource MaterialDesignFlatButton}" Click="cmdDuplicateAll_Click">
+                  <materialDesign:PackIcon Kind="AutoAwesomeMotion" />
+                  <Button.ToolTip>
+                    <ToolTip>
+                      <StackPanel>
+                        <TextBlock FontWeight="Bold">Duplicate All</TextBlock>
+                        <TextBlock>Duplicate all items.</TextBlock>
+                      </StackPanel>
+                    </ToolTip>
+                  </Button.ToolTip>
+                </Button>
+              </ToolBar>
+            </StackPanel>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+              <ListBox  x:Name="GCodeView" 
+                      Style="{DynamicResource MaterialDesignListBox}"
+                        Height="400"
+                        Width="auto" 
+                      SelectionMode="Single"
+                      HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
+                      SelectionChanged="GCodeView_SelectionChanged" 
+                        MouseDoubleClick="GCodeView_MouseDoubleClick"/>
+            </ScrollViewer>
+
+          </StackPanel>
+        </Border>
+      </GroupBox>
+
+      <StackPanel Grid.Row="1">
+        <Button x:Name="cmdJogYForward" 
+                Content="JOG Y+"
+                Margin="0 5"
+                Width="80" HorizontalAlignment="Center" 
+                Click="cmdJogYForward_Click"/>
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center">
+          <Button x:Name="cmdJogXReverse" Content="JOG X-" 
+                  Margin="5"
+                  Width="80" Click="cmdJogXReverse_Click"/>
+          <Button x:Name="cmdJogXForward" Content="JOG X+" 
+                  Margin="5"
+                  Width="80" Click="cmdJogXForward_Click"/>
+        </StackPanel>
+        <Button x:Name="cmdJogYReverse" Content="JOG Y-" 
+                Width="80" HorizontalAlignment="Center" 
+                Margin="0 5"
+                Click="cmdJogYReverse_Click"/>
+      </StackPanel>
+
+      <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,150,0,0">
+
+        <CheckBox Name="PunchDisableCheckBox" 
+                  Content="Disable Punch"/>
+
+      </StackPanel>
+
+    </Grid>
+
+
+
+    <GroupBox Grid.Column="2" Grid.Row="1" 
+              Margin="10 0" 
+                Style="{DynamicResource MaterialDesignGroupBox}" 
+                BorderThickness="0" Padding="0">
+      <GroupBox.Header>
+        <TextBlock Margin="10" Opacity="0.54">Sheet</TextBlock>
+      </GroupBox.Header>
+
+
+      <Grid Grid.Column="2" Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition Height="60"/>
-          <RowDefinition Height="*" Name="canvasRow"/>
+          <RowDefinition Height="35" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0" VerticalAlignment="Center">
-          <Menu VerticalAlignment="Center" Background="#ff44325f">
-            <MenuItem Header="File" Foreground="White">
-              <MenuItem x:Name="loadFileMenuItem" IsEnabled="False" Header="Load File" Click="loadFileMenuItem_Click"/>
-              <MenuItem x:Name="saveFileMenuItem"  IsEnabled="False" Header="Save File" Click="saveFileMenuItem_Click"/>
-              <MenuItem x:Name="SetSheetDimensions" IsEnabled="False" Header="Set Sheet Dimensions" Click="SetSheetDimensions_Click"/>
-              <MenuItem x:Name="exitMenuItem" Header="Exit" Click="exitMenuItem_Click"/>
-            </MenuItem>
-          </Menu>
-        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="0" 
+                  Orientation="Horizontal"
+                  VerticalAlignment="Center"
+                  Background="{DynamicResource MaterialDesignToolBarBackground}"                  >
 
-        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
-          <TextBlock x:Name="StrippitName" Text="STRIPPIT SUPER 750SG" FontSize="30" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" Foreground="#FFFDFDFD"/>
-          <TextBlock x:Name="XAxisPosition" Text="X AXIS POSITION:" Width="290" FontSize="20" TextAlignment="Left" VerticalAlignment="Center" Margin="40,0,20,0" Visibility="Hidden"/>
-          <TextBlock x:Name="YAxisPosition" Text="Y AXIS POSITION:" Width="290" FontSize="20" TextAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
-        </StackPanel>
+          <TextBlock Padding="10" Opacity="0.25" Text="Dimension Width: "/>
+          <TextBlock Padding="10" Opacity="0.52" x:Name="SheetWidthTextBlock" Text="0.00"/>
+          <TextBlock Padding="10" Opacity="0.25" Text=" Height: "/>
+          <TextBlock Padding="10" Opacity="0.52" x:Name="SheetHeightTextBlock" Text="0.00"/>
 
-        <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
-
-          <Button x:Name="cmdLineAtAngle"  Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <Button.ToolTip>
-              <ToolTip>
-                <StackPanel>
-                  <TextBlock FontWeight="Bold">LAA</TextBlock>
-                  <TextBlock>LAA</TextBlock>
-                </StackPanel>
-              </ToolTip>
-            </Button.ToolTip>
-            <StackPanel Orientation="Horizontal">
-              <Image Width="60" Source="Assets/LAA.png" ToolTip="LAA"/>
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdBoltHoleCircle" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="BHC" VerticalAlignment="Center" Margin="0,0,50,0"/>
-              <Image Width="60" Height="35" Source="Assets/BHC.png" />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdLinearContour" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="LIN CON" VerticalAlignment="Center" Margin="0,0,10,0"/>
-              <Image Width="60" Height="35" Source="Assets/LIN CON.png"  />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdCurveContour" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="CURVE CON" FontSize="14" VerticalAlignment="Center" Margin="0,0,10,0"/>
-              <Image Width="60" Height="35" Source="Assets/CURVE CON.png"   />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdGridX" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="GRID X" VerticalAlignment="Center" Margin="0,0,25,0"/>
-              <Image Width="60" Height="35" Source="Assets/GRID.png"   />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdGridY" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="GRID Y" VerticalAlignment="Center" Margin="0,0,25,0"/>
-              <Image Width="60" Height="35" Source="Assets/GRID.png"   />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdArc" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="ARC" VerticalAlignment="Center" Margin="0,0,50,0"/>
-              <Image Width="60" Height="35" Source="Assets/ARC.png"   />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdRecWinP" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="RECWIN(P)" VerticalAlignment="Center" FontSize="14" Margin="0,0,20,0"/>
-              <Image Width="60" Height="35" Source="Assets/RECWINP.png"  />
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdRecWinF" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="RECWIN(F)" FontSize="14" VerticalAlignment="Center" Margin="0,0,20,0"/>
-              <Image Width="60" Height="35" Source="Assets/RECWINF.png"/>
-            </StackPanel>
-          </Button>
-
-          <Button x:Name="cmdSinglePunch" FontSize="10" Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
-            <StackPanel Orientation="Horizontal" Width="160">
-              <TextBlock Text="SINGLE PUNCH" FontSize="15" Width="60" VerticalAlignment="Center" Margin="0,0,25,0" TextWrapping="Wrap"/>
-              <Image Width="60" Height="35" Source="Assets/SINGLEPUNCH.png" />
-            </StackPanel>
-          </Button>
-
-
-          <StackPanel Visibility="Collapsed">
-            <Button x:Name="cmdJogYForward" Content="JOG Y+" Style="{StaticResource ShapeButton}" Width="80" HorizontalAlignment="Center" Click="cmdJogYForward_Click"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-              <Button x:Name="cmdJogXReverse" Content="JOG X-" Style="{StaticResource ShapeButton}" Width="80" Click="cmdJogXReverse_Click"/>
-              <Button x:Name="cmdJogXForward" Content="JOG X+" Style="{StaticResource ShapeButton}" Width="80" Click="cmdJogXForward_Click"/>
-            </StackPanel>
-            <Button x:Name="cmdJogYReverse" Content="JOG Y-" Style="{StaticResource ShapeButton}" Width="80" HorizontalAlignment="Center" Click="cmdJogYReverse_Click"/>
-          </StackPanel>
-
+          <TextBlock Padding="10" Opacity="0.25" x:Name="XAxisPosition" Text=" X Axis Position: 0.00 mm;" />
+          <TextBlock Padding="10" Opacity="0.25" x:Name="YAxisPosition" Text=" Y Axis Position: 0.00 mm;" />
 
         </StackPanel>
 
-        <Grid Grid.Column="1" Grid.Row="1">
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-          </Grid.ColumnDefinitions>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="1*" />
-          </Grid.RowDefinitions>
 
-          <StackPanel Grid.Row="0">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-              <ListBox  x:Name="GCodeView" Height="400" Width="auto" BorderBrush="Black" BorderThickness="1" 
-                      SelectionMode="Single"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      SelectionChanged="GCodeView_SelectionChanged" MouseDoubleClick="GCodeView_MouseDoubleClick"/>
-            </ScrollViewer>
-            <StackPanel Orientation="Horizontal">
-              <Button x:Name="cmdRemove" Style="{DynamicResource MaterialDesignFlatButton}" Click="cmdRemove_Click">
-                <materialDesign:PackIcon Kind="GarbageCan" />
-                <Button.ToolTip>
-                  <ToolTip>
-                    <StackPanel>
-                      <TextBlock FontWeight="Bold">Remove</TextBlock>
-                      <TextBlock>Remove the selected item.</TextBlock>
-                    </StackPanel>
-                  </ToolTip>
-                </Button.ToolTip>
-              </Button>
 
-              <Button x:Name="cmdDuplicate" IsEnabled="True" Style="{DynamicResource MaterialDesignFlatButton}" Click="cmdDuplicate_Click">
-                <materialDesign:PackIcon Kind="ContentDuplicate" />
-                <Button.ToolTip>
-                  <ToolTip>
-                    <StackPanel>
-                      <TextBlock FontWeight="Bold">Duplicate</TextBlock>
-                      <TextBlock>Duplicate the selected item.</TextBlock>
-                    </StackPanel>
-                  </ToolTip>
-                </Button.ToolTip>
-              </Button>
-
-              <Button x:Name="cmdDuplicateAll" IsEnabled="True" Style="{DynamicResource MaterialDesignFlatButton}" Click="cmdDuplicateAll_Click">
-                <materialDesign:PackIcon Kind="AutoAwesomeMotion" />
-                <Button.ToolTip>
-                  <ToolTip>
-                    <StackPanel>
-                      <TextBlock FontWeight="Bold">Duplicate All</TextBlock>
-                      <TextBlock>Duplicate all items.</TextBlock>
-                    </StackPanel>
-                  </ToolTip>
-                </Button.ToolTip>
-              </Button>
-
-            </StackPanel>
-            
-          </StackPanel>
-
-          <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal">
-              <Button x:Name="cmdReferenceAxes" IsEnabled="True" Style="{StaticResource ShapeButton }" Background="Orange" Height="60" Width="140" Margin="5,0" Click="cmdReferenceAxes_Click">
-                <TextBlock Text="REFERENCE AXES" TextWrapping="Wrap" FontSize="20" TextAlignment="Center"/>
-              </Button>
-              <Button x:Name="StopPunchButton" IsEnabled="False" Style="{StaticResource ShapeButton}"  Background="Red" Height="60" Width="140" Margin="5,0" Click="StopPunchButton_Click">
-                <TextBlock Text="STOP PUNCH" TextWrapping="Wrap" FontSize="20" TextAlignment="Center"/>
-              </Button>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-              <Button x:Name="StartPunchButton" IsEnabled="False" Style="{StaticResource ShapeButton}" Background="LawnGreen" Height="60" Width="140" Margin="5,0" Click="StartPunchButton_Click">
-                <TextBlock Text="START PUNCH" TextWrapping="Wrap" FontSize="20" TextAlignment="Center"/>
-              </Button>
-
-              <Button x:Name="MDIButton" IsEnabled="False" Style="{StaticResource ShapeButton}" Background="LawnGreen" Height="60" Width="140" Margin="5,0" Click="MDIButton_Click">
-                <TextBlock Text="MDI" FontSize="20" TextAlignment="Center"/>
-              </Button>
-            </StackPanel>
-          </StackPanel>
-
-          <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,150,0,0" Visibility="Hidden">
-            <StackPanel Orientation="Horizontal">
-              <TextBlock Text="X Coords: " FontSize="20" FontStyle="Italic" Width="100"/>
-              <TextBlock x:Name="xCoords" Text="0.00" FontSize="20" FontStyle="Italic"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-              <TextBlock Text="Y Coords: " FontSize="20" FontStyle="Italic" Width="100"/>
-              <TextBlock x:Name="yCoords" Text="0.00" FontSize="20" FontStyle="Italic"/>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-              <TextBlock Text="Sheet Width: " FontSize="20" FontStyle="Italic" Width="120"/>
-              <TextBlock x:Name="SheetWidthTextBlock" Text="0.00" FontSize="20" FontStyle="Italic"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
-              <TextBlock Text="Sheet Height: " FontSize="20" FontStyle="Italic" Width="120"/>
-              <TextBlock x:Name="SheetHeightTextBlock" Text="0.00" FontSize="20" FontStyle="Italic"/>
-            </StackPanel>
-
-            <CheckBox Name="PunchDisableCheckBox" Content="Disable Punch" FontSize="20" Margin="0,10,0,0" Visibility="Collapsed"/>
-
-          </StackPanel>
-
-        </Grid>
-        
-        <Border Name="CanvasBorder" Grid.Column="2" Grid.Row="1" BorderThickness="1" BorderBrush="Black" Background="LightGray">
-          <Canvas Name="MainCanvas" Background="White" Width="0" Height="0" VerticalAlignment="top" 
+        <Border Name="CanvasBorder" Grid.Column="0" Grid.Row="1" 
+              BorderThickness="1" 
+              BorderBrush="{DynamicResource MaterialDesignDivider}" 
+              Margin="0">
+          <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Canvas Name="MainCanvas" Background="White" Width="0" Height="0" VerticalAlignment="top" 
                     HorizontalAlignment="Left" RenderTransformOrigin="0,0" 
                     MouseMove="MainCanvas_MouseMove" MouseDown="MainCanvas_MouseDown" MouseUp="MainCanvas_MouseUp" MouseLeave="MainCanvas_MouseLeave"                  
                     >
-            <Canvas.RenderTransform>
-              <TransformGroup>
-                <ScaleTransform x:Name="MainCanvasScale" ScaleY="1" ScaleX="1"/>
-                <SkewTransform AngleY="0" AngleX="0"/>
-                <RotateTransform Angle="0"/>
-                <TranslateTransform />
-              </TransformGroup>
-            </Canvas.RenderTransform>
-            <StackPanel>
-              <TextBlock Name="canvasWidth" FontSize="20"/>
-              <TextBlock Name="canvasHeight" FontSize="20"/>
-            </StackPanel>
+              <Canvas.RenderTransform>
+                <TransformGroup>
+                  <ScaleTransform x:Name="MainCanvasScale" ScaleY="1" ScaleX="1"/>
+                  <SkewTransform AngleY="0" AngleX="0"/>
+                  <RotateTransform Angle="0"/>
+                  <TranslateTransform />
+                </TransformGroup>
+              </Canvas.RenderTransform>
+              <StackPanel>
+                <TextBlock Name="canvasWidth" FontSize="20"/>
+                <TextBlock Name="canvasHeight" FontSize="20"/>
+              </StackPanel>
 
-            <Path x:Name="Arrow" Data="M0,0 L35.833333,65.625 44.500412,52.666667 69.500643,77.208333 77.167378,69.500302 52.312758,45.093946 64.500319,36.375158 z" Fill="Red" HorizontalAlignment="Left" Height="50" Width="50" Stretch="Fill" Stroke="Red" VerticalAlignment="Top" />
+              <Path x:Name="Arrow" Data="M0,0 L35.833333,65.625 44.500412,52.666667 69.500643,77.208333 77.167378,69.500302 52.312758,45.093946 64.500319,36.375158 z" Fill="{DynamicResource MaterialDesignPrimary}" HorizontalAlignment="Left" Height="50" Width="50" Stretch="Fill" Stroke="Red" VerticalAlignment="Top" />
 
-          </Canvas>
+            </Canvas>
+          </ScrollViewer>
         </Border>
+
+        <StackPanel Grid.Column="0" Grid.Row="2" 
+                  Orientation="Horizontal"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Margin="10">
+          <StackPanel Orientation="Horizontal" 
+                      Margin="5 0"
+                      VerticalAlignment="Center">
+            <TextBlock Opacity="0.28" Text="Coords X: " />
+            <TextBlock Opacity="0.52" x:Name="xCoords" Text="0.00" />
+            <TextBlock Opacity="0.28" Text=" Y : " />
+            <TextBlock Opacity="0.52" x:Name="yCoords" Text="0.00" />
+
+          </StackPanel>
+
+
+          <Button x:Name="StartPunchButton" IsEnabled="False"
+                Content="Start Punch"
+                Click="StartPunchButton_Click">
+
+          </Button>
+          <Button x:Name="StopPunchButton" IsEnabled="False" Click="StopPunchButton_Click">
+            <TextBlock Text="Stop Punch" />
+          </Button>
+        </StackPanel>
 
       </Grid>
 
-    </ScrollViewer>
+    </GroupBox>
+
+    <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3"
+                VerticalAlignment="Center" >
+      <materialDesign:ColorZone
+                Mode="Accent"
+                VerticalAlignment="Stretch">
+        <TextBlock FontSize="10" Padding="10">@ 2019</TextBlock>
+      </materialDesign:ColorZone>
+    </StackPanel>
+
   </Grid>
+
+
 
 
 
