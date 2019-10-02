@@ -50,13 +50,21 @@
 
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
           <TextBlock x:Name="StrippitName" Text="STRIPPIT SUPER 750SG" FontSize="30" TextAlignment="Left" VerticalAlignment="Center" Margin="0,0,20,0" Foreground="#FFFDFDFD"/>
-          <TextBlock x:Name="XAxisPosition" Text="X AXIS POSITION:" Width="290" FontSize="20" TextAlignment="Left" VerticalAlignment="Center" Margin="40,0,20,0"/>
-          <TextBlock x:Name="YAxisPosition" Text="Y AXIS POSITION:" Width="290" FontSize="20" TextAlignment="Left" VerticalAlignment="Center"/>
+          <TextBlock x:Name="XAxisPosition" Text="X AXIS POSITION:" Width="290" FontSize="20" TextAlignment="Left" VerticalAlignment="Center" Margin="40,0,20,0" Visibility="Hidden"/>
+          <TextBlock x:Name="YAxisPosition" Text="Y AXIS POSITION:" Width="290" FontSize="20" TextAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Grid.RowSpan="2">
 
           <Button x:Name="cmdLineAtAngle"  Style="{StaticResource ShapeButton}" Click="GcodeButton_Click">
+            <Button.ToolTip>
+              <ToolTip>
+                <StackPanel>
+                  <TextBlock FontWeight="Bold">LAA</TextBlock>
+                  <TextBlock>LAA</TextBlock>
+                </StackPanel>
+              </ToolTip>
+            </Button.ToolTip>
             <StackPanel Orientation="Horizontal">
               <Image Width="60" Source="Assets/LAA.png" ToolTip="LAA"/>
             </StackPanel>
